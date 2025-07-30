@@ -1,0 +1,32 @@
+[
+  {
+    "cat_name": "Wallpapers",
+    "cat_image": "https://i.pinimg.com/736x/e8/30/01/e83001d7a214a0037c115c5fa9961ad2.jpg",
+    "route": "wallpaper"
+  },
+  {
+    "cat_name": "Family",
+    "cat_image": "https://i.pinimg.com/736x/76/98/b4/7698b424c9f7ce927e79a6e0d23d6e44.jpg",
+    "route": "family"
+  },
+  {
+    "cat_name": "Images",
+    "cat_image": "https://i.pinimg.com/736x/73/4d/b1/734db1808af9fdf70a30955a9d7752af.jpg",
+    "route": "images"
+  },
+  {
+    "cat_name": "Videos",
+    "cat_image": "https://i.pinimg.com/736x/7f/3a/17/7f3a17ca22a4bfe42b8738fb7d11cc08.jpg",
+    "route": "videos"
+  },
+  {
+    "cat_name": "Statistics",
+    "cat_image": "https://i.pinimg.com/736x/d9/fd/40/d9fd4038a83e71b93a535e9831736715.jpg",
+    "route": "statistics"
+  },
+  {
+    "cat_name": "Slogans",
+    "cat_image": "https://i.pinimg.com/1200x/36/9d/b0/369db0db4ce0b401243cc8b7db31a88d.jpg",
+    "route": "slogans"
+  }
+]
