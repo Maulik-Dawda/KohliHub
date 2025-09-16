@@ -1,10 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:virat_kohli/Controller/wallpaper_controller.dart';
 import 'package:virat_kohli/Themes/app_colors.dart';
 import 'package:virat_kohli/View/Detail%20Pages/wallpaper_details.dart';
-import 'package:virat_kohli/Widgets/custom_images_list.dart';
+import 'package:virat_kohli/Widgets/custom_back_button.dart';
 
 class Wallpapers extends StatelessWidget {
   final String catName;
@@ -44,19 +45,13 @@ class Wallpapers extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 25, right: 10, left: 10),
+            padding: const EdgeInsets.only(top: 30, right: 10, left: 10),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    IconButton(
-                      onPressed: () => Get.back(),
-                      icon: Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
-                    ),
-                    Text("Back", style: TextStyle(color: Colors.white)),
-                  ],
-                ),
+                SizedBox(
+                  height: screenHeight * 0.05,
+                  child: CustomBackButton(),
+                ) ,
                 SizedBox(height: screenHeight * 0.015),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
@@ -135,19 +130,26 @@ class Wallpapers extends StatelessWidget {
                     if (wallpaperController.isLoading.value) {
                       return Center(child: CircularProgressIndicator());
                     }
-                    return GridView.builder(
+                    return MasonryGridView.count(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      padding: const EdgeInsets.all(10),
                       itemCount: wallpaperController.wallpaperList.length,
-                      padding: const EdgeInsets.all(12),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 12,
-                        crossAxisSpacing: 18,
-                      ),
                       itemBuilder: (context, index) {
-                        final wallpaper = wallpaperController.wallpaperList[index];
-                        return CustomImagesList(
-                          imageUrl: wallpaper.image ?? "",
-                          onTap: () => Get.to(() => WallpaperDetails(imageUrl: wallpaper.image ?? "")),
+                        final image = wallpaperController.wallpaperList[index];
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: InkWell(
+                            onTap: () => Get.to(() => WallpaperDetails(imageUrl: image.image ?? "")),
+                            child: Image.network(
+                              image.image ?? '',
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return const Icon(Icons.broken_image, color: Colors.white);
+                              },
+                            ),
+                          ),
                         );
                       },
                     );

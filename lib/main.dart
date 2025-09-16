@@ -3,11 +3,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:virat_kohli/View/CatPages/family.dart';
 import 'package:virat_kohli/View/CatPages/images.dart';
-import 'package:virat_kohli/View/CatPages/slogans.dart';
+import 'package:virat_kohli/View/CatPages/quotes.dart';
 import 'package:virat_kohli/View/CatPages/statistics.dart';
 import 'package:virat_kohli/View/CatPages/videos.dart';
 import 'package:virat_kohli/View/CatPages/wallpapers.dart';
 import 'package:virat_kohli/View/Main%20Pages/homepage.dart';
+import 'package:virat_kohli/View/OnBoarding/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,20 +21,19 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => Homepage()),
         GetPage(name: '/wallpaper', page: () => Wallpapers(catName: "WallPapers",)),
-        GetPage(name: '/family', page: () => Family()),
-        GetPage(name: '/images', page: () => Images()),
-        GetPage(name: '/videos', page: () => Videos()),
-        GetPage(name: '/statistics', page: () => Statistics()),
-        GetPage(name: '/slogans', page: () => Slogans()),
+        GetPage(name: '/family', page: () => FamilyPage(catName: "Family")),
+        GetPage(name: '/images', page: () => Images(catName: "Images",)),
+        GetPage(name: '/videos', page: () => Videos(catName: "Match Videos",)),
+        GetPage(name: '/statistics', page: () => Statistics(catName: "Statistics",)),
+        GetPage(name: '/quotes', page: () => Quotes(catName: "Quotes",)),
       ],
-      home: Homepage(),
+      home: SplashScreen(),
     );
   }
 }

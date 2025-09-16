@@ -5,12 +5,13 @@ import 'package:virat_kohli/Controller/category_controller.dart';
 import 'package:virat_kohli/Controller/news_list_controller.dart';
 import 'package:virat_kohli/Themes/app_colors.dart';
 import 'package:virat_kohli/View/Detail%20Pages/all_news_list.dart';
+import 'package:virat_kohli/View/Detail%20Pages/news_detail_page.dart';
 import 'package:virat_kohli/Widgets/custom_category_list.dart';
 import 'package:virat_kohli/Widgets/custom_news_list.dart';
 
 class Homepage extends StatelessWidget {
   Homepage({super.key});
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final CategoryController categoryController = Get.put(CategoryController());
   final NewsListController newsListController = Get.put(NewsListController());
 
@@ -18,43 +19,12 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      key: _scaffoldKey,
-      endDrawer: Drawer(
-        backgroundColor: AppColors.lightBlack,
-        child: Column(
-          children: [
-            DrawerHeader(
-              child: Center(
-                child: Text(
-                  "Menu",
-                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 24),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                "Profile",
-                style: GoogleFonts.poppins(color: Colors.white),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text(
-                "Settings",
-                style: GoogleFonts.poppins(color: Colors.white),
-              ),
-              onTap: () {},
-            ),
-          ],
-        ),
-      ),
       body: Stack(
         children: [
           ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-            ),
+            borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20)),
             child: Container(
               height: double.infinity,
               width: double.infinity,
@@ -70,7 +40,7 @@ class Homepage extends StatelessWidget {
           Align(
             alignment: Alignment.topRight,
             child: Container(
-              width: screenWidth * 0.4,
+              width: screenWidth * 0.35,
               height: screenHeight * 0.9,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -78,9 +48,7 @@ class Homepage extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                ),
+                borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20)),
               ),
               child: Center(
                 child: RotatedBox(
@@ -98,25 +66,6 @@ class Homepage extends StatelessWidget {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 50, right: 10),
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.black,
-                ),
-                child: IconButton(
-                  onPressed: () {
-                    _scaffoldKey.currentState?.openEndDrawer();
-                  },
-                  icon: Icon(Icons.menu_outlined),
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
             child: SingleChildScrollView(
@@ -127,10 +76,14 @@ class Homepage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        height: screenHeight * 0.20,
+                        height: screenHeight * 0.2,
                         child: Column(
                           children: [
-                            Image(image: AssetImage("assets/images/logo.png")),
+                            Image(
+                              image: AssetImage("assets/images/logo.png"),
+                              height: screenHeight * 0.08,
+                              width: screenWidth * 0.3,
+                            ),
                             Text(
                               "The",
                               style: GoogleFonts.poppins(
@@ -149,7 +102,7 @@ class Homepage extends StatelessWidget {
                                     fontSize: 14,
                                   ),
                                 ),
-                                SizedBox(width: 5),
+                                SizedBox(width: screenWidth * 0.02),
                                 Text(
                                   "Kohli",
                                   style: GoogleFonts.poppins(
@@ -165,12 +118,7 @@ class Homepage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  Text(
-                    "Category",
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                  const SizedBox(height: 10),
+                  const Text("Category", style: TextStyle(color: Colors.white, fontSize: 16)),
                   Obx(() {
                     if (categoryController.isLoading.value) {
                       return const Center(child: CircularProgressIndicator());
@@ -184,7 +132,7 @@ class Homepage extends StatelessWidget {
                         crossAxisSpacing: 10,
                       ),
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         final category = categoryController.categoryList[index];
                         return CustomCategoryList(
@@ -195,15 +143,17 @@ class Homepage extends StatelessWidget {
                       },
                     );
                   }),
-                  const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Top News",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      const Text("Top News", style: TextStyle(color: Colors.white, fontSize: 16)),
+                      TextButton(
+                        onPressed: () => Get.to(() => AllNewsList()),
+                        child: const Text(
+                          "View All",
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
                       ),
-                      TextButton(onPressed: () => Get.to(() => AllNewsList()), child: Text("View All",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),))
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -212,14 +162,17 @@ class Homepage extends StatelessWidget {
                       return const Center(child: CircularProgressIndicator());
                     }
                     return SizedBox(
-                      height: 160,
+                      height: screenHeight * 0.20,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemCount: newsListController.newsList.length,
                         separatorBuilder: (context, index) => const SizedBox(width: 12),
                         itemBuilder: (context, index) {
                           final news = newsListController.newsList[index];
-                          return CustomNewsList(imageUrl: news.newsImage ?? '');
+                          return InkWell(
+                            onTap: () => Get.to(() => NewsDetailPage(newsId: news.id ?? "")),
+                            child: CustomNewsList(imageUrl: news.newsImage ?? ''),
+                          );
                         },
                       ),
                     );
@@ -227,7 +180,7 @@ class Homepage extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

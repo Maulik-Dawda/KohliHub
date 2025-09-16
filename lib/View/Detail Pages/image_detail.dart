@@ -1,27 +1,26 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:virat_kohli/Controller/wallpaper_controller.dart';
+import 'package:virat_kohli/Controller/image_controller.dart';
 import 'package:virat_kohli/Themes/app_colors.dart';
 import 'package:virat_kohli/Widgets/custom_back_button.dart';
 import 'package:virat_kohli/Widgets/custom_images_list.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
-class WallpaperDetails extends StatefulWidget {
+
+class ImageDetail extends StatefulWidget {
   final String imageUrl;
 
-  const WallpaperDetails({super.key, required this.imageUrl});
+  const ImageDetail({super.key, required this.imageUrl});
 
   @override
-  State<WallpaperDetails> createState() => _WallpaperDetailsState();
+  State<ImageDetail> createState() => _ImageDetailState();
 }
 
-class _WallpaperDetailsState extends State<WallpaperDetails> {
-  final WallpaperController wallpaperController = Get.find<WallpaperController>();
-
+class _ImageDetailState extends State<ImageDetail> {
+  final ImageController imageController = Get.find<ImageController>();
   late String currentImageUrl;
 
   @override
@@ -85,8 +84,9 @@ class _WallpaperDetailsState extends State<WallpaperDetails> {
                     ),
                   ),
                   SizedBox(
-                      height: screenHeight * 0.2,
-                      child: CustomBackButton())
+                    height: screenHeight * 0.2,
+                    child: const CustomBackButton(),
+                  ),
                 ],
               ),
               Padding(
@@ -105,7 +105,7 @@ class _WallpaperDetailsState extends State<WallpaperDetails> {
                   ],
                 ),
               ),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "More Like This",
@@ -114,26 +114,27 @@ class _WallpaperDetailsState extends State<WallpaperDetails> {
               ),
               Expanded(
                 child: Obx(() {
-                  if (wallpaperController.isLoading.value) {
-                    return Center(child: CircularProgressIndicator());
+                  if (imageController.isLoading.value) {
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   return GridView.builder(
-                    itemCount: wallpaperController.wallpaperList.length,
+                    itemCount: imageController.imageList.length,
                     padding: const EdgeInsets.all(12),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 12,
-                      crossAxisSpacing: 18,
-                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 12,
+                          crossAxisSpacing: 18,
+                        ),
                     itemBuilder: (context, index) {
-                      final wallpaper = wallpaperController.wallpaperList[index];
+                      final image = imageController.imageList[index];
 
                       return CustomImagesList(
-                        imageUrl: wallpaper.image ?? "",
+                        imageUrl: image.image ?? "",
                         onTap: () {
                           setState(() {
-                            currentImageUrl = wallpaper.image ?? "";
+                            currentImageUrl = image.image ?? "";
                           });
                         },
                       );

@@ -25,8 +25,8 @@
     "route": "statistics"
   },
   {
-    "cat_name": "Slogans",
+    "cat_name": "Quotes",
     "cat_image": "https://i.pinimg.com/1200x/36/9d/b0/369db0db4ce0b401243cc8b7db31a88d.jpg",
-    "route": "slogans"
+    "route": "quotes"
   }
 ]

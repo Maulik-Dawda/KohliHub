@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virat_kohli/Themes/app_colors.dart';
-import 'package:virat_kohli/View/Main%20Pages/dashboard.dart';
+import 'package:virat_kohli/View/Main%20Pages/homepage.dart';
 import 'package:virat_kohli/View/OnBoarding/login.dart';
 import 'package:virat_kohli/Widgets/custom_swipe_button.dart';
 import 'package:virat_kohli/Widgets/custom_text_button.dart';
@@ -71,7 +71,7 @@ class Register extends StatelessWidget {
                   SizedBox(height: screenHeight * 0.02),
                   CustomSwipeButton(
                     onFinished: () {
-                      Get.off(() => Dashboard(),);
+                      Get.off(() => Homepage(),);
                     },
                     btnText: "Register",
                   ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virat_kohli/Themes/app_colors.dart';
-import 'package:virat_kohli/View/OnBoarding/login.dart';
+import 'package:virat_kohli/View/Main%20Pages/homepage.dart';
 import 'package:virat_kohli/Widgets/custom_swipe_button.dart';
 
 class SecondIntro extends StatelessWidget {
@@ -42,7 +42,7 @@ class SecondIntro extends StatelessWidget {
               SizedBox(
                   height: screenHeight * 0.7,
                   child: Image(image: AssetImage('assets/images/journey.png'),height: double.infinity,width: double.infinity,)),
-              CustomSwipeButton(onFinished: () => Get.off(() => Login()) ,btnText: "Continue")
+              CustomSwipeButton(onFinished: () => Get.off(() => Homepage()) ,btnText: "Continue")
             ],
           ),
         ),
